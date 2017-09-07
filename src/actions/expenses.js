@@ -1,3 +1,5 @@
+import uuid from 'uuid'
+
 import {
   ADD_EXPENSE,
   REMOVE_EXPENSE,
@@ -17,7 +19,7 @@ export const addExpense = (
 	}
 })
 
-export const removeExpense = ({ id } = {}) => ({
+export const removeExpense = (id = null) => ({
 	type: REMOVE_EXPENSE,
 	id
 })
