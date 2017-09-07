@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { removeExpense } from '../actions/expenses'
 
 class ExpenseListItem extends Component {
 	render() {
-		const { description, amount, createdAt } = this.props
+		const { description, amount, createdAt, removeExpense, id } = this.props
 
 		return (
 			<div>
@@ -10,9 +12,10 @@ class ExpenseListItem extends Component {
 				<p>
 					{amount} - {createdAt}
 				</p>
+        <button onClick={() => removeExpense(id)}>Remove</button>
 			</div>
 		)
 	}
 }
 
-export default ExpenseListItem
+export default connect(null, { removeExpense })(ExpenseListItem)
