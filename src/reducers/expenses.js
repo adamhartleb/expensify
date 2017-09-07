@@ -1,6 +1,9 @@
 import { ADD_EXPENSE, EDIT_EXPENSE, REMOVE_EXPENSE } from '../actions/types.js'
 
-const DEFAULT_STATE = []
+const DEFAULT_STATE = [
+	{ description: 'Meow', note: '', amount: 0, createdAt: 0 },
+	{ description: 'Bill', note: '', amount: 0, createdAt: 0 }
+]
 
 const expensesReducer = (state = DEFAULT_STATE, action) => {
 	switch (action.type) {
@@ -13,9 +16,9 @@ const expensesReducer = (state = DEFAULT_STATE, action) => {
 				return expense.id === action.id
 					? { ...expense, ...action.updates }
 					: expense
-      })
-    default:
-      return state
+			})
+		default:
+			return state
 	}
 }
 
