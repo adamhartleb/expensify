@@ -7,9 +7,10 @@ class ExpenseForm extends Component {
 	state = {
 		description: '',
 		note: '',
-    amount: '0.00',
-    createdAt: moment(),
-    focused: false
+		amount: '',
+		createdAt: moment(),
+		focused: false,
+		error: ''
 	}
 
 	onDescriptionChange = e => {
@@ -25,25 +26,50 @@ class ExpenseForm extends Component {
 	onAmountChange = e => {
 		let amount = e.target.value
 
-		if (amount.match(/^\d*(.\d{0,2})?$/)) {
+		if (!amount || amount.match(/^\d{1,}(.\d{0,2})?$/)) {
 			this.setState(() => ({ amount }))
 		}
-  }
-  
-  onDateChange = createdAt => {
-    this.setState(() => ({ createdAt }))
-  }
+	}
 
-  onFocusChange = ({ focused }) => {
-    this.setState(() => ({ focused }))
-  }
+	onDateChange = createdAt => {
+		if (createdAt) {
+			this.setState(() => ({ createdAt }))
+		}
+	}
+
+	onFocusChange = ({ focused }) => {
+		this.setState(() => ({ focused }))
+	}
+
+	onSubmit = e => {
+		e.preventDefault()
+		const { description, amount, createdAt, note } = this.state
+
+		if (!description || !amount) {
+      return this.setState(() => ({ error: 'An amount and description are required' }))
+    }
+
+    this.props.onSubmit({
+      note,
+      description,
+      amount: parseFloat(amount),
+      createdAt: createdAt.valueOf()
+    })
+    this.setState(() => ({ 
+      error: '',
+      note: '',
+      amount: '',
+      createdAt: moment(),
+      description: ''
+    }))
+	}
 
 	render() {
-    const { description, amount, createdAt, focused, note } = this.state
+		const { description, amount, createdAt, focused, note, error } = this.state
 
 		return (
 			<div>
-				<form>
+				<form onSubmit={this.onSubmit}>
 					<input
 						type="text"
 						placeholder="Description"
@@ -57,14 +83,14 @@ class ExpenseForm extends Component {
 						onChange={this.onAmountChange}
 						value={amount}
 					/>
-          <SingleDatePicker
-            date={createdAt}
-            onDateChange={this.onDateChange}
-            focused={focused}
-            onFocusChange={this.onFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-          />
+					<SingleDatePicker
+						date={createdAt}
+						onDateChange={this.onDateChange}
+						focused={focused}
+						onFocusChange={this.onFocusChange}
+						numberOfMonths={1}
+						isOutsideRange={() => false}
+					/>
 					<textarea
 						placeholder="Add a note for your expense (optional)"
 						onChange={this.onNoteChange}
@@ -72,6 +98,7 @@ class ExpenseForm extends Component {
 					/>
 					<button>Add Expense</button>
 				</form>
+				{error ? <p>{error}</p> : null}
 			</div>
 		)
 	}
