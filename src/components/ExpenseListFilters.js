@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { setTextFilter, sortByAmount, sortByDate } from '../actions/filters'
 
 class ExpenseListFilters extends Component {
-  handleFilterChange = val => {
-    const { sortByAmount, sortByDate } = this.props
-    val === "date" ? sortByDate() : sortByAmount() 
-  }
+	handleFilterChange = val => {
+		const { sortByAmount, sortByDate } = this.props
+		val === 'date' ? sortByDate() : sortByAmount()
+	}
 
 	render() {
-		const { text, setTextFilter } = this.props
+		const { filters: { text, sortBy }, setTextFilter } = this.props
 		return (
 			<div>
 				<input
@@ -17,7 +17,10 @@ class ExpenseListFilters extends Component {
 					value={text}
 					onChange={e => setTextFilter(e.target.value)}
 				/>
-				<select onChange={e => this.handleFilterChange(e.target.value)}>
+				<select
+					value={sortBy}
+					onChange={e => this.handleFilterChange(e.target.value)}
+				>
 					<option value="date">Date</option>
 					<option value="amount">Amount</option>
 				</select>
@@ -27,14 +30,14 @@ class ExpenseListFilters extends Component {
 }
 
 const mapStateToProps = state => {
-	return { text: state.text }
+	return { filters: state.filters }
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-    setTextFilter: text => dispatch(setTextFilter(text)),
-    sortByAmount: () => dispatch(sortByAmount()),
-    sortByDate: () => dispatch(sortByDate())
+		setTextFilter: text => dispatch(setTextFilter(text)),
+		sortByAmount: () => dispatch(sortByAmount()),
+		sortByDate: () => dispatch(sortByDate())
 	}
 }
 
