@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import moment from 'moment'
+import { connect } from 'react-redux'
 import { SingleDatePicker } from 'react-dates'
 import 'react-dates/lib/css/_datepicker.css'
 
@@ -11,6 +12,19 @@ class ExpenseForm extends Component {
 		createdAt: moment(),
 		focused: false,
 		error: ''
+	}
+
+	componentDidMount() {
+		if (this.props.edit) {
+      const [ expense ] = this.props.expense
+      const { description, note, amount, createdAt } = expense
+			this.setState(() => ({
+        description,
+        note,
+        amount,
+        createdAt: moment(createdAt)
+			}))
+		}
 	}
 
 	onDescriptionChange = e => {
@@ -46,22 +60,24 @@ class ExpenseForm extends Component {
 		const { description, amount, createdAt, note } = this.state
 
 		if (!description || !amount) {
-      return this.setState(() => ({ error: 'An amount and description are required' }))
-    }
+			return this.setState(() => ({
+				error: 'An amount and description are required'
+			}))
+		}
 
-    this.props.onSubmit({
-      note,
-      description,
-      amount: parseFloat(amount),
-      createdAt: createdAt.valueOf()
-    })
-    this.setState(() => ({ 
-      error: '',
-      note: '',
-      amount: '',
-      createdAt: moment(),
-      description: ''
-    }))
+		this.props.onSubmit({
+			note,
+			description,
+			amount: parseFloat(amount),
+			createdAt: createdAt.valueOf()
+		})
+		this.setState(() => ({
+			error: '',
+			note: '',
+			amount: '',
+			createdAt: moment(),
+			description: ''
+		}))
 	}
 
 	render() {
@@ -104,4 +120,13 @@ class ExpenseForm extends Component {
 	}
 }
 
-export default ExpenseForm
+const mapStateToProps = (state, props) => {
+	if (props.edit) {
+		return {
+			expense: state.expenses.filter(expense => expense.id === props.id)
+		}
+  }
+  return {}
+}
+
+export default connect(mapStateToProps)(ExpenseForm)

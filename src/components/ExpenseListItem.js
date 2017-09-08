@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { removeExpense } from '../actions/expenses'
+import { Link } from 'react-router-dom'
 
 class ExpenseListItem extends Component {
 	render() {
@@ -8,7 +9,9 @@ class ExpenseListItem extends Component {
 
 		return (
 			<div>
-				<h3>{description}</h3>
+				<h3>
+          <Link to={`/edit/${id}`}>{description}</Link>
+        </h3>
 				<p>
 					{amount} - {createdAt}
 				</p>
