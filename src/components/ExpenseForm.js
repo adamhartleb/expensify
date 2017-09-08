@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { connect } from 'react-redux'
 import { SingleDatePicker } from 'react-dates'
+import { withRouter } from 'react-router-dom'
 import 'react-dates/lib/css/_datepicker.css'
 
 class ExpenseForm extends Component {
@@ -15,14 +15,17 @@ class ExpenseForm extends Component {
 	}
 
 	componentDidMount() {
+    if (this.props.edit && !this.props.expense) {
+      return this.props.history.replace('/')
+    }
+
 		if (this.props.edit) {
-      const [ expense ] = this.props.expense
-      const { description, note, amount, createdAt } = expense
+			const { description, note, amount, createdAt } = this.props.expense
 			this.setState(() => ({
-        description,
-        note,
-        amount,
-        createdAt: moment(createdAt)
+				description,
+				note,
+				amount,
+				createdAt: moment(createdAt)
 			}))
 		}
 	}
@@ -71,13 +74,7 @@ class ExpenseForm extends Component {
 			amount: parseFloat(amount),
 			createdAt: createdAt.valueOf()
 		})
-		this.setState(() => ({
-			error: '',
-			note: '',
-			amount: '',
-			createdAt: moment(),
-			description: ''
-		}))
+    this.props.history.replace('/')
 	}
 
 	render() {
@@ -112,7 +109,7 @@ class ExpenseForm extends Component {
 						onChange={this.onNoteChange}
 						value={note}
 					/>
-					<button>Add Expense</button>
+					<button>{ this.props.edit ? 'Edit Expense' : 'Add Expense' }</button>
 				</form>
 				{error ? <p>{error}</p> : null}
 			</div>
@@ -120,13 +117,5 @@ class ExpenseForm extends Component {
 	}
 }
 
-const mapStateToProps = (state, props) => {
-	if (props.edit) {
-		return {
-			expense: state.expenses.filter(expense => expense.id === props.id)
-		}
-  }
-  return {}
-}
 
-export default connect(mapStateToProps)(ExpenseForm)
+export default withRouter(ExpenseForm)

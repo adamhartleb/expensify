@@ -1,15 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ExpenseForm from './ExpenseForm'
+import { connect } from 'react-redux'
+import { editExpense } from '../actions/expenses'
 
 class EditExpensePage extends Component {
-  render() {
-    return (
-      <div>
-        <h1>EditExpensePage</h1>
-        <ExpenseForm edit={true} id={this.props.match.params.id} />
-      </div>
-    );
-  }
+	render() {
+		return (
+			<div>
+				<h1>EditExpensePage</h1>
+				<ExpenseForm
+					edit={true}
+					expense={this.props.expense[0]}
+					onSubmit={updates =>
+						this.props.editExpense(this.props.match.params.id, updates)}
+				/>
+			</div>
+		)
+	}
 }
 
-export default EditExpensePage;
+const mapStateToProps = (state, props) => {
+	return {
+		expense: state.expenses.filter(
+			expense => expense.id === props.match.params.id
+		)
+	}
+}
+
+export default connect(mapStateToProps, { editExpense })(EditExpensePage)
