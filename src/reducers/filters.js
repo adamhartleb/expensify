@@ -1,3 +1,4 @@
+import moment from 'moment'
 import {
   SET_TEXT_FILTER,
   SET_END_DATE,
@@ -9,8 +10,8 @@ import {
 const DEFAULT_STATE = {
   text: '',
   sortBy: 'date',
-  startDate: null,
-  endDate: null
+  startDate: moment().startOf('month'),
+  endDate: moment().endOf('month')
 }
 
 const filtersReducer = (state = DEFAULT_STATE, action) => {
@@ -24,7 +25,7 @@ const filtersReducer = (state = DEFAULT_STATE, action) => {
     case SET_START_DATE:
       return { ...state, startDate: action.startDate }
     case SET_END_DATE:
-      return { ...state, startDate: action.endDate }
+      return { ...state, endDate: action.endDate }
     default:
       return state
   }
