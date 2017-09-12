@@ -1,9 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import 'normalize.css/normalize.css';
-import './styles/styles.scss';
+import 'normalize.css/normalize.css'
+import './styles/styles.scss'
 
 import AppRouter from './router/AppRoutes'
+import { AppContainer } from 'react-hot-loader'
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+      <Component />
+    </AppContainer>
+    , document.querySelector('#app'));
+}
+
+render(AppRouter)
+
+if (module.hot) {
+    module.hot.accept()
+}
+
+
+
