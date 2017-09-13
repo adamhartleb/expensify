@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import selectExpenses from '../selectors/expenses'
+import ExpensesSummary from './ExpensesSummary'
 import ExpenseListItem from './ExpenseListItem'
 
 class ExpenseList extends Component {
@@ -11,6 +12,7 @@ class ExpenseList extends Component {
         {this.props.expenses.map(expense => {
           return <ExpenseListItem key={expense.id} {...expense} />
         })}
+        <ExpensesSummary expenses={this.props.expenses} />
       </div>
     )
 	}
