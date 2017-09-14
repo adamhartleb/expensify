@@ -1,9 +1,11 @@
 import numeral from 'numeral'
 
-export default (expenses) => {
-  const { amount } = expenses.reduce((prevExpense, nextExpense) => {
-    return { amount: prevExpense.amount + nextExpense.amount }
-  })
+export default expenses => {
+	const amount = expenses
+		.map(exp => exp.amount)
+		.reduce((prevExpense, nextExpense) => {
+			return prevExpense + nextExpense
+		}, 0)
 
-  return numeral(amount).format('$0,0.00')
+	return numeral(amount).format('$0,0.00')
 }

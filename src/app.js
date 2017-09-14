@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
+import './firebase/firebase'
 
 import AppRouter from './router/AppRoutes'
 import { AppContainer } from 'react-hot-loader'
