@@ -11,10 +11,28 @@ const config = {
 
 firebase.initializeApp(config)
 
-const database = firebase.database()
+const db = firebase.database()
+const root = db.ref()
 
-database.ref().on('value', val => console.log(val.val()))
-
-database.ref().set({
-  age: 32321
+root.on('value', data => {
+	const info = data.val()
+	console.log(`${info.name} is a ${info.job.title} at ${info.job.company}`)
 })
+
+root.set({
+	age: 26,
+	job: {
+		company: "reFX",
+		title: "Customer Support"
+	},
+	location: {
+		city: "Langley",
+		country: "Canada"
+	},
+	name: "Adam Hartleb",
+	stressLevel: 9
+})
+
+setTimeout(() => {
+	db.ref('job').update({ title: "Web Developer" })
+}, 3500)
