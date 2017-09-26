@@ -1,14 +1,8 @@
 import uuid from 'uuid'
 
-import {
-  ADD_EXPENSE,
-  REMOVE_EXPENSE,
-  EDIT_EXPENSE
-} from './types.js'
+import { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE } from './types.js'
 
-export const addExpense = (
-	{ description = '', note = '', amount = 0, createdAt = 0 } = {}
-) => ({
+export const addExpense = ({ description = '', note = '', amount = 0, createdAt = 0 } = {}) => ({
 	type: ADD_EXPENSE,
 	expense: {
 		id: uuid(),
@@ -25,7 +19,7 @@ export const removeExpense = (id = null) => ({
 })
 
 export const editExpense = (id, updates) => ({
-  type: EDIT_EXPENSE,
-  id,
-  updates
+	type: EDIT_EXPENSE,
+	id,
+	updates
 })

@@ -12,27 +12,31 @@ const config = {
 firebase.initializeApp(config)
 
 const db = firebase.database()
-const root = db.ref()
+const root = db.ref('expenses')
 
-root.on('value', data => {
-	const info = data.val()
-	console.log(`${info.name} is a ${info.job.title} at ${info.job.company}`)
+
+root.on('value', snapshot => {
+  const expenses = []
+
+  snapshot.forEach(child => {
+    expenses.push({
+      id: child.key,
+      ...child.val()
+    })
+  })
+
+  console.log(expenses)
 })
 
-root.set({
-	age: 26,
-	job: {
-		company: "reFX",
-		title: "Customer Support"
-	},
-	location: {
-		city: "Langley",
-		country: "Canada"
-	},
-	name: "Adam Hartleb",
-	stressLevel: 9
+
+root.push({
+  name: 'Hey',
+  user: 'You'
 })
 
 setTimeout(() => {
-	db.ref('job').update({ title: "Web Developer" })
+  root.push({
+    name: 'Pew',
+    user: 'Mew'
+  })
 }, 3500)
