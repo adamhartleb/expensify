@@ -12,31 +12,5 @@ const config = {
 firebase.initializeApp(config)
 
 const db = firebase.database()
-const root = db.ref('expenses')
 
-
-root.on('value', snapshot => {
-  const expenses = []
-
-  snapshot.forEach(child => {
-    expenses.push({
-      id: child.key,
-      ...child.val()
-    })
-  })
-
-  console.log(expenses)
-})
-
-
-root.push({
-  name: 'Hey',
-  user: 'You'
-})
-
-setTimeout(() => {
-  root.push({
-    name: 'Pew',
-    user: 'Mew'
-  })
-}, 3500)
+export { firebase, db as default }

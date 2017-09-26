@@ -3,8 +3,13 @@ import { connect } from 'react-redux'
 import selectExpenses from '../selectors/expenses'
 import ExpensesSummary from './ExpensesSummary'
 import ExpenseListItem from './ExpenseListItem'
+import { getExpenses } from '../actions/expenses'
 
 class ExpenseList extends Component {
+  componentDidMount () {
+    this.props.getExpenses()
+  }
+
 	render() {
 		return (
       <div>
@@ -22,4 +27,4 @@ const mapStateToProps = state => ({
   expenses: selectExpenses(state.expenses, state.filters)
 })
 
-export default connect(mapStateToProps)(ExpenseList)
+export default connect(mapStateToProps, { getExpenses })(ExpenseList)
