@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
-import './firebase/firebase'
+import { firebase } from './firebase/firebase'
 
-import AppRouter from './router/AppRoutes'
+import AppRouter, { history } from './router/AppRoutes'
 import { AppContainer } from 'react-hot-loader'
 
 const render = Component => {
@@ -22,5 +22,13 @@ if (module.hot) {
     module.hot.accept()
 }
 
+const publicPages = ['/']
 
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    history.push('/dashboard')
+  } else {
+    history.push('/')
+  }
+})
 

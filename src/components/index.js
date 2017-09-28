@@ -4,6 +4,7 @@ import Header from './Header'
 import HelpPage from './HelpPage'
 import NotFound from './NotFound'
 import AddExpensePage from './AddExpensePage'
+import LoginPage from './LoginPage'
 
 export {
   Dashboard,
@@ -11,5 +12,6 @@ export {
   HelpPage,
   NotFound,
   AddExpensePage,
-  EditExpensePage
+  EditExpensePage,
+  LoginPage
 }

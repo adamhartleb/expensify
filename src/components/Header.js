@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { logout } from '../actions/auth'
 
 class Header extends Component {
 	render() {
@@ -18,9 +20,10 @@ class Header extends Component {
 				<NavLink to="/help" activeClassName="selected">
 					Help
 				</NavLink>
+        <button onClick={this.props.logout}>Logout</button>
 			</header>
 		)
 	}
 }
 
-export default Header
+export default connect(null, { logout })(Header)
