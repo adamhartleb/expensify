@@ -1,13 +1,11 @@
 import uuid from 'uuid'
 import db from '../firebase/firebase'
 
-const ref = db.ref('expenses')
-
 import { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE, GET_EXPENSES } from './types.js'
 
-export const getExpenses = () => {
+export const getExpenses = uid => {
 	return dispatch => {
-		ref.once('value', snapshot => {
+		db.ref(`expenses/${uid}`).once('value', snapshot => {
 			const expenses = []
 			snapshot.forEach(child => {
 				expenses.push({
@@ -22,12 +20,12 @@ export const getExpenses = () => {
 }
 
 export const startAddExpense = (
+  uid,
 	{ description = '', note = '', amount = 0, createdAt = 0 } = {}
 ) => {
 	const expense = { description, note, amount, createdAt }
 	return dispatch => {
-		ref.once('child_added', snapshot => {
-			console.log('fired')
+		db.ref(`expenses/${uid}`).once('child_added', snapshot => {
 			dispatch(
 				addExpense({
 					id: snapshot.key,
@@ -35,7 +33,7 @@ export const startAddExpense = (
 				})
 			)
 		})
-		ref.push(expense)
+		db.ref(`expenses/${uid}`).push(expense)
 	}
 }
 
@@ -44,20 +42,18 @@ export const addExpense = expense => ({
 	expense
 })
 
-export const removeExpense = (id = null) => {
+export const removeExpense = (uid, id = null, cb) => {
 	return dispatch => {
-		db.ref(`expenses/${id}`).remove(() => {
-			dispatch({
-				type: REMOVE_EXPENSE,
-				id
-			})
-		})
+		db.ref(`expenses/${uid}/${id}`).remove(() => {
+      dispatch({ type: REMOVE_EXPENSE, id })
+      cb()
+    })
 	}
 }
 
-export const editExpense = (id, updates) => {
+export const editExpense = (uid, id, updates) => {
 	return dispatch => {
-		db.ref(`expenses/${id}`).update({
+		db.ref(`expenses/${uid}/${id}`).update({
 			...updates
 		}, () =>
 			dispatch({

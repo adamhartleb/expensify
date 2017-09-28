@@ -7,7 +7,7 @@ import { getExpenses } from '../actions/expenses'
 
 class ExpenseList extends Component {
   componentDidMount () {
-    this.props.getExpenses()
+    this.props.getExpenses(this.props.auth.uid)
   }
 
 	render() {
@@ -24,7 +24,8 @@ class ExpenseList extends Component {
 }
 
 const mapStateToProps = state => ({
-  expenses: selectExpenses(state.expenses, state.filters)
+  expenses: selectExpenses(state.expenses, state.filters),
+  auth: state.auth
 })
 
 export default connect(mapStateToProps, { getExpenses })(ExpenseList)
