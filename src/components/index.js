@@ -5,6 +5,7 @@ import HelpPage from './HelpPage'
 import NotFound from './NotFound'
 import AddExpensePage from './AddExpensePage'
 import LoginPage from './LoginPage'
+import PrivateRoute from './PrivateRoute'
 
 export {
   Dashboard,
@@ -13,5 +14,6 @@ export {
   NotFound,
   AddExpensePage,
   EditExpensePage,
-  LoginPage
+  LoginPage,
+  PrivateRoute
 }

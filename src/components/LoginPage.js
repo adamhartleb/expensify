@@ -3,6 +3,12 @@ import { connect } from 'react-redux'
 import { login } from '../actions/auth'
 
 class LoginPage extends Component {
+  componentWillMount() {
+    if (this.props.auth.uid) {
+      this.props.history.replace('/dashboard')
+    }
+  }
+
 	render() {
 		return (
       <button onClick={this.props.login}>Login</button>
@@ -10,4 +16,8 @@ class LoginPage extends Component {
 	}
 }
 
-export default connect(null, { login })(LoginPage)
+const mapStateToProps = state => {
+  return { auth: state.auth }
+}
+
+export default connect(mapStateToProps, { login })(LoginPage)

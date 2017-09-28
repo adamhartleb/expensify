@@ -3,6 +3,8 @@ import { Router, Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from '../store/store'
 import createHistory from 'history/createBrowserHistory'
+import { firebase } from '../firebase/firebase'
+import { loggedIn, loggedOut } from '../actions/auth'
 import {
 	Dashboard,
 	Header,
@@ -10,10 +12,21 @@ import {
 	NotFound,
 	AddExpensePage,
   EditExpensePage,
-  LoginPage
+  LoginPage,
+  PrivateRoute
 } from '../components'
 
 export const history = createHistory()
+
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+    store.dispatch(loggedIn(user.uid))
+    history.push('/dashboard')
+  } else {
+    store.dispatch(loggedOut())
+    history.push('/')
+  }
+})
 
 const AppRouter = () => (
 	<Provider store={store}>
@@ -22,9 +35,9 @@ const AppRouter = () => (
 				<Header />
 				<Switch>
 					<Route exact path="/" component={LoginPage} />
-          <Route exact path="/dashboard" component={Dashboard} />
-					<Route path="/create" component={AddExpensePage} />
-					<Route path="/edit/:id" component={EditExpensePage} />
+          <PrivateRoute exact path="/dashboard" component={Dashboard} />
+					<PrivateRoute path="/create" component={AddExpensePage} />
+					<PrivateRoute path="/edit/:id" component={EditExpensePage} />
 					<Route path="/help" component={HelpPage} />
 					<Route path="*" component={NotFound} />
 				</Switch>
