@@ -5,7 +5,7 @@ import { ADD_EXPENSE, REMOVE_EXPENSE, EDIT_EXPENSE, GET_EXPENSES } from './types
 
 export const getExpenses = uid => {
 	return dispatch => {
-		db.ref(`expenses/${uid}`).once('value', snapshot => {
+		db.ref(`users/${uid}/expenses`).once('value', snapshot => {
 			const expenses = []
 			snapshot.forEach(child => {
 				expenses.push({
@@ -25,7 +25,7 @@ export const startAddExpense = (
 ) => {
 	const expense = { description, note, amount, createdAt }
 	return dispatch => {
-		db.ref(`expenses/${uid}`).once('child_added', snapshot => {
+		db.ref(`users/${uid}/expenses`).once('child_added', snapshot => {
 			dispatch(
 				addExpense({
 					id: snapshot.key,
@@ -33,7 +33,7 @@ export const startAddExpense = (
 				})
 			)
 		})
-		db.ref(`expenses/${uid}`).push(expense)
+		db.ref(`users/${uid}/expenses`).push(expense)
 	}
 }
 
@@ -44,7 +44,7 @@ export const addExpense = expense => ({
 
 export const removeExpense = (uid, id = null, cb) => {
 	return dispatch => {
-		db.ref(`expenses/${uid}/${id}`).remove(() => {
+		db.ref(`users/${uid}/expenses/${id}`).remove(() => {
       dispatch({ type: REMOVE_EXPENSE, id })
       cb()
     })
@@ -53,7 +53,7 @@ export const removeExpense = (uid, id = null, cb) => {
 
 export const editExpense = (uid, id, updates) => {
 	return dispatch => {
-		db.ref(`expenses/${uid}/${id}`).update({
+		db.ref(`users/${uid}/expenses/${id}`).update({
 			...updates
 		}, () =>
 			dispatch({
