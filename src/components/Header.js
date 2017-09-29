@@ -1,26 +1,17 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../actions/auth'
+import { Button } from 'antd'
 
 class Header extends Component {
 	render() {
 		return (
-			<header>
-				<h1>This is my header</h1>
-				<NavLink exact to="/" activeClassName="selected">
-					Home
-				</NavLink>
-				<NavLink to="/create" activeClassName="selected">
-					Add
-				</NavLink>
-				<NavLink to="/edit" activeClassName="selected">
-					Edit
-				</NavLink>
-				<NavLink to="/help" activeClassName="selected">
-					Help
-				</NavLink>
-        <button onClick={this.props.logout}>Logout</button>
+			<header className='header'>
+        <div className='header__content'>
+          <Link to='/dashboard' className='header__content-title'>Expensify</Link>
+          <Button icon='logout' ghost onClick={this.props.logout}>Logout</Button>
+        </div>
 			</header>
 		)
 	}

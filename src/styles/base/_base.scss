@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway|Open+Sans');
+
 html {
   font-size: 62.5%;
 }
 
 body {
-  font-family: Helvetica, Arial, sans-serif;
+  color: #333;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: $m-size;
 }
 

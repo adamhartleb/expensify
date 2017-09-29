@@ -7,7 +7,6 @@ import { firebase } from '../firebase/firebase'
 import { loggedIn, loggedOut } from '../actions/auth'
 import {
 	Dashboard,
-	Header,
 	HelpPage,
 	NotFound,
 	AddExpensePage,
@@ -32,7 +31,6 @@ const AppRouter = () => (
 	<Provider store={store}>
 		<Router history={history}>
 			<div>
-				<Header />
 				<Switch>
 					<Route exact path="/" component={LoginPage} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />
