@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import totalExpenses from '../selectors/expenses-total'
+import React, { Component } from "react"
+import totalExpenses from "../selectors/expenses-total"
 
 class ExpensesSummary extends Component {
 	getTotal = expenses => {
@@ -7,9 +7,14 @@ class ExpensesSummary extends Component {
 	}
 
 	render() {
+		const { expenses } = this.props
+		const length = expenses.length
 		return (
 			<div>
-				<h3>Total: {this.getTotal(this.props.expenses)}</h3>
+				<p>
+					Viewing <b>{length}</b> {length > 1 ? "expenses" : "expense"} totalling{" "}
+					<b>{this.getTotal(expenses)}</b>
+				</p>
 			</div>
 		)
 	}

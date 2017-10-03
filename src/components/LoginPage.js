@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { login } from "../actions/auth"
-import { Button } from "antd"
+import RaisedButton from "material-ui/RaisedButton"
 
 class LoginPage extends Component {
 	componentWillMount() {
@@ -15,9 +15,10 @@ class LoginPage extends Component {
 			<div className="box-layout">
 				<h1 className="box-layout__title">Expensify</h1>
 
-				<Button type='dashed' ghost icon="login" onClick={this.props.login}>
-					LOG IN WITH GOOGLE
-				</Button>
+				<RaisedButton
+					label="LOGIN"
+					onClick={this.props.login}
+				/>
 			</div>
 		)
 	}

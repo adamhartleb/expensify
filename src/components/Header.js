@@ -2,7 +2,13 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logout } from '../actions/auth'
-import { Button } from 'antd'
+import FlatButton from "material-ui/FlatButton"
+
+const styles = {
+  button: {
+    color: 'white'
+  }
+}
 
 class Header extends Component {
 	render() {
@@ -10,7 +16,7 @@ class Header extends Component {
 			<header className='header'>
         <div className='header__content'>
           <Link to='/dashboard' className='header__content-title'>Expensify</Link>
-          <Button icon='logout' ghost onClick={this.props.logout}>Logout</Button>
+          <FlatButton style={styles.button} onClick={this.props.logout}>Logout</FlatButton>
         </div>
 			</header>
 		)

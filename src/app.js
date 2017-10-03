@@ -2,15 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import './styles/styles.scss'
-import 'antd/dist/antd.css'
+import 'normalize.css/normalize.scss'
 
 import AppRouter, { history } from './router/AppRoutes'
 import { AppContainer } from 'react-hot-loader'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component />
+      <MuiThemeProvider>
+        <Component />
+      </MuiThemeProvider>
     </AppContainer>
     , document.querySelector('#app'));
 }
