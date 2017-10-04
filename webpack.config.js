@@ -10,7 +10,6 @@ module.exports = env => {
 
 	return {
 		entry: [
-      'react-hot-loader/patch',
       './src/app.js'
     ],
 		output: {
@@ -51,12 +50,10 @@ module.exports = env => {
 			contentBase: path.join(__dirname, 'public'),
 			publicPath: '/dist/',
 			historyApiFallback: true,
-      hot: true,
       port: 8081
 		},
 		plugins: [
 			new ExtractTextPlugin('styles.css'),
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         'process.env.FIREBASE_API_KEY': JSON.stringify(process.env.FIREBASE_API_KEY),
         'process.env.FIREBASE_AUTH_DOMAIN': JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),

@@ -1,0 +1,16 @@
+.expense__link {
+  color: #212121;
+  text-decoration: none;
+
+  &:hover, &:visited, &:active {
+    color: inherit;
+  }
+
+}
+
+.expense__container {
+  border: 1px solid #cacccd;
+  margin-top: 14px;
+  padding: 14px;
+  box-sizing: border-box;
+}

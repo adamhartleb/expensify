@@ -30,7 +30,7 @@ firebase.auth().onAuthStateChanged(user => {
 const AppRouter = () => (
 	<Provider store={store}>
 		<Router history={history}>
-			<div>
+			<div className="root">
 				<Switch>
 					<Route exact path="/" component={LoginPage} />
           <PrivateRoute exact path="/dashboard" component={Dashboard} />

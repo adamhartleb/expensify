@@ -119,6 +119,7 @@ class ExpenseForm extends Component {
 						/>
             <div>
               <RaisedButton
+                onClick={this.onSubmit}
                 labelColor="white"
                 backgroundColor="#212121"
                 label={this.props.edit ? "Edit Expense" : "Add Expense"}
