@@ -1,0 +1,17 @@
+.filters__container {
+  display: flex;
+  margin-top: 14px;
+}
+
+.filters__item {
+  margin-right: 14px;
+}
+
+.filters__item--input {
+  box-sizing: border-box;
+  border: 1px solid #cacccd;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 12px;
+}

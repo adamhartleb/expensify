@@ -1,0 +1,22 @@
+.form__container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+}
+
+.form__container > * {
+  margin-bottom: 14px;
+}
+
+.form__item--input {
+  box-sizing: border-box;
+  border: 1px solid #cacccd;
+  height: 50px;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 12px;
+}
+
+.textarea {
+  height: 160px;
+}

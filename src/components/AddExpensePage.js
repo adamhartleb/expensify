@@ -7,7 +7,7 @@ class AddExpensePage extends Component {
 	render() {
     const { auth, startAddExpense } = this.props
 		return (
-			<div>
+			<div className='container'>
 				<h1>Add Expense</h1>
 				<ExpenseForm
           onSubmit={expense => startAddExpense(auth.uid, expense)}

@@ -9,7 +9,6 @@ class ExpenseList extends Component {
 	render() {
 		return (
       <div>
-        <h1>Expense List</h1>
         {this.props.expenses.map(expense => {
           return <ExpenseListItem key={expense.id} {...expense} />
         })}
