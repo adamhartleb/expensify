@@ -6,11 +6,43 @@
     color: inherit;
   }
 
+
 }
 
 .expense__container {
   border: 1px solid #cacccd;
-  margin-top: 14px;
-  padding: 14px;
+  padding: 7px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2, p {
+    margin: 7px 0;
+  }
+}
+
+.expense__description {
+  word-break: break-all;
+
+  p {
+    color: #9E9E9E;
+    font-style: italic;
+  }
+}
+
+
+.expense__header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 7px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 14px;
+  border: 1px solid #cacccd;
+  border-bottom: none;
+}
+
+.expense__summary {
+  font-size: 32px;
 }

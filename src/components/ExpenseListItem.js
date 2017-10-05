@@ -11,9 +11,11 @@ class ExpenseListItem extends Component {
 		return (
 			<Link className="expense__link" to={`/edit/${id}`}>
 				<div className="expense__container">
-					<h3>{description}</h3>
-					<p className="expense__amount">{numeral(amount).format("$0,0.00")}</p>
-					<p className="expense__date">{moment(createdAt).format("MMMM Do, YYYY")}</p>
+          <div className="expense__description">
+            <h2>{description}</h2>
+            <p className="expense__date">{moment(createdAt).format("MMMM Do, YYYY")}</p>
+          </div>
+          <p className="expense__amount">{numeral(amount).format("$0,0.00")}</p>
 				</div>
 			</Link>
 		)

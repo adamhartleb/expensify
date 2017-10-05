@@ -11,7 +11,7 @@ class ExpensesSummary extends Component {
 		const length = expenses.length
 		return (
 			<div>
-				<p>
+				<p className="expense__summary">
 					Viewing <b>{length}</b> {length > 1 ? "expenses" : "expense"} totalling{" "}
 					<b>{this.getTotal(expenses)}</b>
 				</p>
