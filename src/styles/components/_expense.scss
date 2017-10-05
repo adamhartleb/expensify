@@ -11,6 +11,7 @@
 
 .expense__container {
   border: 1px solid #cacccd;
+  border-top: none;
   padding: 7px;
   box-sizing: border-box;
   display: flex;
@@ -40,7 +41,6 @@
   text-transform: uppercase;
   margin-top: 14px;
   border: 1px solid #cacccd;
-  border-bottom: none;
 }
 
 .expense__summary {
